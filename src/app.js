@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { globalErrorHandaler } from "./app/utils/globalErrorHandaler.js";
+import { notFoundRoute } from "./app/middleWares/notFound.js";
 
 const app = express();
 
@@ -19,8 +21,13 @@ app.use(cookieParser());
 app.get("/", async (req, res) => {
 	res.status(200).json({
 		success: true,
-		message: "Welcome to Blood for life",
+		message: "Welcome to Tech Me",
 	});
 });
+
+// =====not found url
+app.use(notFoundRoute);
+// =====global error handaler
+app.use(globalErrorHandaler);
 
 export default app;
