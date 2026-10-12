@@ -3,11 +3,14 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { globalErrorHandaler } from "./app/utils/globalErrorHandaler.js";
 import { notFoundRoute } from "./app/middleWares/notFound.js";
+import { requestLogger } from "./app/middleWares/requestLogger.js";
 import router from "./app/routes/index.js";
 import envConfig from "./app/configs/envConfig/index.js";
 
 const app = express();
 
+// =====request logger (first, so every request is logged)
+app.use(requestLogger);
 app.use(express.json());
 app.use(
 	cors({
