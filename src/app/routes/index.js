@@ -21,7 +21,6 @@ router.get("/health", (req, res) => {
 	});
 });
 
-
 // =====module routes
 router.use("/auth", authRoutes);
 
