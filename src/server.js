@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import app from "./app.js";
 import { dbConfig } from "./app/configs/dbConfig/index.js";
 import envConfig from "./app/configs/envConfig/index.js";
+import { redisClient } from "./app/configs/redisConfig/index.js";
 
 const port = envConfig.port || 8000;
 
@@ -9,6 +10,10 @@ const main = async () => {
 	try {
 		// -----db connection
 		await dbConfig();
+		// -----redis connection
+		await redisClient.connect();
+		console.log("redis connected");
+
 		// -----running server
 		const server = app.listen(port, () => {
 			console.log(`server is running on port ${port}`);
@@ -21,7 +26,8 @@ const main = async () => {
 			// -----stop taking new requests; callback runs when running ones finish
 			server.close(async () => {
 				await mongoose.connection.close();
-				console.log("Server and database closed");
+				await redisClient.close();
+				console.log("Server, database and redis closed");
 				process.exit(0);
 			});
 

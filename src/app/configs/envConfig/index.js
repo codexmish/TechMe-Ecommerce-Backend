@@ -16,6 +16,10 @@ const envSchema = z.object({
 	JWT_REFRESH_SECRET: z.string().min(32),
 	JWT_ACCESS_EXPIRES_IN: z.string().min(1),
 	JWT_REFRESH_EXPIRES_IN: z.string().min(1),
+	REDIS_USER: z.string().min(1),
+	REDIS_PASS: z.string().min(1),
+	REDIS_HOST: z.string().min(1),
+	REDIS_PORT: z.coerce.number().int().positive(),
 
 	// -----not used yet: make these required when the feature is built
 	SMTP_USER: z.string().optional(),
@@ -23,10 +27,6 @@ const envSchema = z.object({
 	CLOUDINARY_CLOUD_NAME: z.string().optional(),
 	CLOUDINARY_API_KEY: z.string().optional(),
 	CLOUDINARY_API_SECRET: z.string().optional(),
-	REDIS_USER: z.string().optional(),
-	REDIS_PASS: z.string().optional(),
-	REDIS_HOST: z.string().optional(),
-	REDIS_PORT: z.string().optional(),
 });
 
 // -----stop the app if any env variable is missing or wrong
