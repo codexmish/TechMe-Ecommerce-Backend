@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
 import { globalErrorHandaler } from "./app/utils/globalErrorHandaler.js";
 import { notFoundRoute } from "./app/middleWares/notFound.js";
 import { requestLogger } from "./app/middleWares/requestLogger.js";
@@ -11,6 +12,8 @@ const app = express();
 
 // =====request logger (first, so every request is logged)
 app.use(requestLogger);
+// =====security headers
+app.use(helmet());
 app.use(express.json());
 app.use(
 	cors({
