@@ -17,9 +17,11 @@ const envSchema = z.object({
 	JWT_ACCESS_EXPIRES_IN: z.string().min(1),
 	JWT_REFRESH_EXPIRES_IN: z.string().min(1),
 
-	// -----not used yet: make these required when the feature is built
 	SMTP_USER: z.string().optional(),
 	SMTP_PASS: z.string().optional(),
+	SMTP_HOST: z.string().optional(),
+	SMTP_PORT: z.coerce.number().int().positive().default(587),
+	SMTP_FROM: z.string().optional(),
 	CLOUDINARY_CLOUD_NAME: z.string().optional(),
 	CLOUDINARY_API_KEY: z.string().optional(),
 	CLOUDINARY_API_SECRET: z.string().optional(),
@@ -55,6 +57,9 @@ export default {
 	REDIS_PORT: env.REDIS_PORT,
 	SMTP_USER: env.SMTP_USER,
 	SMTP_PASS: env.SMTP_PASS,
+	SMTP_HOST: env.SMTP_HOST,
+	SMTP_PORT: env.SMTP_PORT,
+	SMTP_FROM: env.SMTP_FROM,
 	JWT_ACCESS_SECRET: env.JWT_ACCESS_SECRET,
 	JWT_REFRESH_SECRET: env.JWT_REFRESH_SECRET,
 	JWT_ACCESS_EXPIRES_IN: env.JWT_ACCESS_EXPIRES_IN,
